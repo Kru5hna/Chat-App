@@ -4,8 +4,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const generateToken = (user,res) => {
+   const JWT_SECRET = process.env;
+   if(!JWT_SECRET) throw new Error("JWT_SECRET is not set");
    // create a token 
-   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+   const token = jwt.sign({ id: user._id }, JWT_SECRET, {
       expiresIn: '7d',
    });
 
