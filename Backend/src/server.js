@@ -1,27 +1,34 @@
-// const express = require('express');
 import express from "express";
 import dotenv from "dotenv";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+import authRoutes from "./routes/auth.route.js";
+import authMessages from "./routes/message.route.js";
+
 dotenv.config();
-import authRoutes from './routes/auth.route.js';
-import authMessages from './routes/message.route.js';
-import path from "path";
 
-const PORT = process.env.PORT || 3000 ;
-
+const PORT = process.env.PORT || 3000;
 const app = express();
-const __dirname = path.resolve();
 
-app.use('/api/auth', authRoutes);
-app.use('api/messages', authMessages);
+// __dirname fix for ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-// make ready for production
-if(process.env.NODE_DEV === 'production') {
-  app.use(express.static(path.join(__dirname, "../Frontend/build")));
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", authMessages);
 
-  app.get('*', (req,res) => {
-    app.sendFile(path.join(__dirname, "../Frontend", "dist", "index.html"));
-  })
+// Production: serve Vite build
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, "../../Frontend/dist");
+  app.use(express.static(frontendPath));
+
+  // ✅ SPA fallback
+  app.use((_, res) => {
+    res.sendFile(path.resolve(frontendPath, "index.html"));
+  });
 }
 
-app.listen(PORT ,() => {console.log('Server is running on port: ' + PORT);
-})
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on port ${PORT}`);
+});
