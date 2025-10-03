@@ -3,65 +3,58 @@ import User from "../models/User.js";
 import bcrypt, { hash } from "bcryptjs";
 
 export const signup = async (req, res) => {
-  const { fullname, email, password } = req.body;
-
+  const { fullName, email, password } = req.body;
+   console.log('here');
+   
   try {
-    if (!fullname || !email || !password) {
+    if (!fullName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
-    // valid email or not
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: "Please enter a valid email" });
-    }
-
-    // Check if user already exists
-    const user = await User.find({ email });
-    if (user) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-    // Hash password
-
-    const salt = await bcrypt.genSalt(10);
-    const hashPass = await bcrypt.hash(password, salt);
-
-    const newUser = new User({
-      email,
-      fullname,
-      password: hashPass,
-    });
-
-    // Save user to DB
-    if (newUser) {
-      generateToken(newUser._id, res);
-      await newUser.save();
-      res.status(201).json(
-        {
-          _id: newUser._id,
-          email: newUser.email,
-          fullname: newUser.fullname,
-          email: newUser.email,
-          profilePicture: newUser.profilePicture,
-        },
-        { msg: "User created successfully", user: newUser }
-      );
-    } else {
-      res.status(400).json({ msg: "Invalid User Data" });
-    }
-    // Send verification email
 
     if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ message: "Password must be at least 6 characters" });
+      return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
-  } catch (error) {
-      console.error("Signup Error : ", error);
-      res.status(500).json({ message: "Server Error" });
-  }
 
-  res.send("Signup Endpoint");
+    // check if emailis valid: regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email format" });
+    }
+
+    const user = await User.findOne({ email });
+    if (user) return res.status(400).json({ message: "Email already exists" });
+
+      // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new User({
+      fullName,
+      email,
+      password: hashedPassword,
+    });
+    
+    // Generate token & set cookie
+    if(newUser){
+       await newUser.save();
+      const token = generateToken(newUser, res);
+      res.status(201).json({
+        _id: newUser._id,
+        fullName: newUser.fullName,
+        email: newUser.email,
+        profilePicture: newUser.profilePicture,
+        token,
+      });
+    } else {
+      res.status(400).json({ message: "Invalid user data" });
+    }
+
+  } catch (error) {
+    console.error("Signup Error : ", error);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
+
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
