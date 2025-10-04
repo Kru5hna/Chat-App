@@ -8,7 +8,7 @@ export const generateToken = (user,res) => {
 
    if(!JWT_SECRET) throw new Error("JWT_SECRET is not set");
    // create a token 
-   const token = jwt.sign({ id: user._id }, JWT_SECRET, {
+   const token = jwt.sign({ userId : user._id }, JWT_SECRET, {
       expiresIn: '7d',
    });
 
