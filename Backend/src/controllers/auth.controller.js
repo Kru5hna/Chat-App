@@ -2,8 +2,9 @@ import { sendWelcomeEmail } from "../email/emailHandlers.js";
 import { generateToken } from "../lib/utils.js";
 import User from "../models/User.js";
 import bcrypt, { hash } from "bcryptjs";
-import dotenv from "dotenv";
-dotenv.config();
+// import dotenv from "dotenv";
+// dotenv.config();
+import "dotenv/config";
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
