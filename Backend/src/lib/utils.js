@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+import { ENV } from "./env.js";
 
-dotenv.config();
 
 export const generateToken = (user,res) => {
-   const JWT_SECRET = process.env.JWT_SECRET;
+   const JWT_SECRET = ENV.JWT_SECRET;
    // console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
    if(!JWT_SECRET) throw new Error("JWT_SECRET is not set");
@@ -16,7 +15,7 @@ export const generateToken = (user,res) => {
    res.cookie('jwt', token, {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production' ? true : false, // use secure cookies in production
+      secure: ENV.NODE_ENV === 'production' ? true : false, // use secure cookies in production
       sameSite: 'strict',  
    })
    return token;
