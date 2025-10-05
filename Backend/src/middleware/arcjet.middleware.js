@@ -5,24 +5,26 @@ export const arcjetProtection = async (req, res, next) => {
   try {
     const decision = await aj.protect(req);
 
-    if (decision.isDenied()) {
-      if (decision.reason.isRateLimit()) {
-        return res.status(429).json({ message: "Rate limit exceeded. Please try again later." });
-      } else if (decision.reason.isBot()) {
-        return res.status(403).json({ message: "Bot access denied." });
+    if(decision.isDenied()) {
+      if(decision.reason.isRateLimit()) {
+        return res.status(429).json({msg : "Rate limit exceeded, Please try again later."});
+      } else if(decision.reason.isBot()) {
+        return res.status(403).json({msg : "Bot access denied."});
       } else {
-        return res.status(403).json({
-          message: "Access denied by security policy.",
-        });
+        return res.status(403).json(
+          {msg : "Access denied by Security Policy."}
+        )
       }
-    }
+      
+    } 
 
-    // check for spoofed bots
-    if (decision.results.some(isSpoofedBot)) {
+    //  Check for spoofed bots
+
+    if(decision.results.some(isSpoofedBot)) {
       return res.status(403).json({
         error: "Spoofed bot detected",
-        message: "Malicious bot activity detected.",
-      });
+        msg: "malicious bot acitivity detected."
+      })
     }
 
     next();

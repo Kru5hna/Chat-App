@@ -26,8 +26,8 @@ const aj = arcjet({
       mode: "LIVE", // Blocks requests. Use "DRY_RUN" to log only
       max: 100, // max 100 requests
       interval: 60, 
-   })
-   ]
+   }),
+   ],
 })
 
 export default aj;
