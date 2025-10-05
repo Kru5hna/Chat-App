@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/Kru5hna/Chat-App#readme",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "gsap": "^3.13.0",
+    "react-router-dom": "^7.9.3"
   },
   "engines": {
     "node": "20.x"
