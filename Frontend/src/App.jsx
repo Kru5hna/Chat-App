@@ -1,16 +1,23 @@
-import { useState } from 'react'
+import React from 'react'
 import { ChatPage } from './Pages/ChatPage'
 import { LoginPage } from './Pages/LoginPage'
-import { Route, Routes } from 'react-router' 
 import { SignUpPage } from './Pages/SignupPage'
 import { useAuthStore } from './store/useAuthStore'
+import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom'
+
 
 function App() {
 
-  const {authUser, isLoggedIn, login} = useAuthStore();
+  // const {checkAuth, isCheckingAuth, authUser} = useAuthStore();
+  
+  // useEffect(() => {
+  //   checkAuth();
+  // },[checkAuth])
+  // console.log({authUser});
 
-  console.log(authUser);
-  console.log(isLoggedIn)
+  const [isLoading, setIsLoading] = useState(false);
+
 
   return (
     <div className="min-h-screen bg-slate-900 relative flex items-center justify-center p-4 overflow-hidden">
@@ -26,16 +33,13 @@ function App() {
 {/* Additional middle glow for more pop */}
 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[500px] bg-purple-500 opacity-25 blur-[150px]" />
 
-<button onClick={login} className='z-10'>click me</button>
       <Routes>
-        <Route path="/" element={<ChatPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={ <SignUpPage /> } />
+        <Route path='/' element={<ChatPage />} />
+        <Route path='/login' element={<LoginPage />} />
       </Routes>
-
       
     </div>
   );
 }
 
-export default App
+export default App	
