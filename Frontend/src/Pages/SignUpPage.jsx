@@ -2,6 +2,6 @@ import React from 'react'
 
 export const SignUpPage = () => {
   return (
-    <div>U</div>
+    <div className='flex justify-center items-center h-screen w-full text-white text-2xl'>SignUp Page</div>
   )
 }

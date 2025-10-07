@@ -1,9 +1,13 @@
 import React from 'react'
+import {LoaderIcon} from 'lucide-react'
 
-export const ChatPage = () => {
+const PageLoader = () => {
   return (
     <div className='flex justify-center items-center h-screen w-full text-white text-2xl'>
-      <h1>ChatApp</h1>
+      <LoaderIcon />
+      
     </div>
   )
 }
+
+export default PageLoader
