@@ -17,6 +17,7 @@ export const generateToken = (user,res) => {
       httpOnly: true,
       secure: ENV.NODE_ENV === 'production' ? true : false, // use secure cookies in production
       sameSite: 'strict',  
+      // sameSite: 'none'
    })
    return token;
 }
