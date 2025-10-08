@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { useAuthStore } from "./store/useAuthStore";
 
-import { LoginPage } from "./Pages/LoginPage";
-import { SignUpPage } from "./Pages/SignUpPage";
+import LoginPage from "./Pages/LoginPage"
+import SignUpPage  from "./Pages/SignUpPage";
 import PageLoader from "./components/PageLoader";
 import { ChatPage } from "./Pages/ChatPage";
 import { Toaster } from "react-hot-toast";
@@ -45,6 +45,7 @@ const App = () => {
         <Route
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to={"/"} />}
+          // element={<LoginPage />}
         />
         <Route
           path="/signup"
