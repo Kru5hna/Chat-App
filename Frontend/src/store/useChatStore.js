@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
+import { useAuthStore } from "./useAuthStore"
 
 
 export const useChatStore = create((set, get) => ({
@@ -51,6 +52,16 @@ export const useChatStore = create((set, get) => ({
       toast.error(error.response.data.message);
     } finally {
       set({ isMessagesLoading: false });
+    }
+  },
+
+  sendMessage: async(messageData) => {
+    const {selectedUser, messages} = get();
+    const { authUser } = useAuthStore.getState();
+    const tempId = `temp-${Date.now()}`;
+
+    const optimisticMessage = {
+      
     }
   }
 }))
