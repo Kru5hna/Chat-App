@@ -5,38 +5,41 @@ import { axiosInstance } from "../lib/axios";
 
 export const useChatStore = create((set, get) => ({
 
-   allConatacts : [],
-   chats: [],
-   activeTab: "chats",
-   selectedUser: null,
-   isUserLoading: false,
-   isMessagesLoading: false,
+  allContacts: [],
+  chats: [],
+  messages: [],
+  activeTab: "chats",
+  selectedUser: null,
+  isUserLoading: false,
+  isMessagesLoading: false,
    
    setActiveTab: (tab) => set({ activeTab: tab }),
-   setSelectedUser: (selectedUser) => set({ selectedUser}),
+  setSelectedUser: (selectedUser) => set({ selectedUser }),
 
    getAllContacts: async () => {
       set({ isUserLoading: true });
       try {
          const res = await axiosInstance.get('/messages/contacts');
-         set({allConatacts: res.data});
+         set({ allContacts: res.data.users || [] });
       } catch (error) {
-         toast.error(error.response.data.message);
+         toast.error(error.response?.data?.message || "Error loading contacts");
+         set({ chats: [] });
+
       } finally {
          set({isUserLoading: false})
       }
    },
 
-   getMyChatPartners: async () => {
-      set({ isUserLoading: true });
-      try {
-         const res = await axiosInstance.get('/messages/contacts');
-         set({chats: res.data});
-      } catch (error) {
-         toast.error(error.response.data.message);
-      } finally {
-         set({isUserLoading: false})
-      }
-   }
+  getMyChatPartners: async () => {
+    set({ isUserLoading: true });
+    try {
+      const res = await axiosInstance.get("/messages/chats");
+      set({ chats: res.data });
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isUserLoading: false });
+    }
+  },
       
 }))

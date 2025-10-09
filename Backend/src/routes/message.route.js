@@ -12,7 +12,8 @@ const router = express.Router();
 
 // These Middlewares will run in order 
 
-router.use(arcjetProtection, protectRoute);
+// router.use(arcjetProtection, protectRoute);
+router.use(protectRoute)
 
 router.get("/contacts", getAllContacts);
 router.get("/chats", getChatPartners);
