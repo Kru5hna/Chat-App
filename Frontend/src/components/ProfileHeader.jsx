@@ -42,7 +42,7 @@ const ProfileHeader = () => {
             /> 
             <div className='absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity'>
 
-              <span className='text-white text-xs' >Change the Image</span>
+              <span className='text-white text-xs' >Upload the Image</span>
             </div>
           </button>
 

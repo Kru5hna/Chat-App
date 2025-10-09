@@ -11,12 +11,12 @@ export const ChatPage = () => {
   const { activeTab, selectedUser } = useChatStore();
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center p-4">
+    <div className="w-full min-h-screen flex items-center justify-center p-4 ">
       <div className="relative w-full max-w-6xl h-[800px]">
         <BorderAnimatedContainer>
-          <div className="w-full h-full flex overflow-hidden rounded-lg bg-[#0a0a0f]">
+          <div className="w-full h-full flex overflow-hidden rounded-lg bg-zinc-950">
             {/* Left Sidebar - Contacts/Chats */}
-            <div className="w-80 bg-[#12121a] flex flex-col border-r border-purple-500/10">
+            <div className="w-80 bg-zinc-950 flex flex-col border-r border-purple-500/10">
               {/* Profile Header */}
               <div className="p-4 border-b border-purple-500/10">
                 <ProfileHeader />
@@ -34,7 +34,7 @@ export const ChatPage = () => {
             </div>
 
             {/* Right Side - Chat Container */}
-            <div className="flex-1 flex flex-col bg-[#0f0f16]">
+            <div className="flex-1 flex flex-col bg-zinc-950">
               {selectedUser ? (
                 <ChatContainer />
               ) : (

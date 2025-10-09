@@ -26,7 +26,7 @@ const SignUpPage = () => {
 
   return (
     <div className="w-full flex items-center justify-center p-4">
-      <div className="relative w-full max-w-6xl md:h-[750px] h-[600px]">
+      <div className="relative w-full max-w-6xl md:h-[700px] h-[570px]">
         <BorderAnimatedContainer>
           <div className="w-full flex flex-col md:flex-row bg-zinc-950 shadow-lg rounded-lg overflow-hidden">
             <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-zinc-700">
