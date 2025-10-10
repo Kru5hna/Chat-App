@@ -2,12 +2,14 @@ import { useState, useRef } from "react";
 import { LogOutIcon, VolumeOffIcon, Volume2Icon } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
+import { useNavigate } from "react-router-dom";
 
 
 
 const ProfileHeader = () => {
 
   const {logout, authUser, updateProfile} = useAuthStore();
+  const navigate = useNavigate();
   const [selectedImg, setSelectedImg] = useState(null);
 
   const fileInputRef = useRef(null);
@@ -24,6 +26,10 @@ const ProfileHeader = () => {
       await updateProfile({ profilePic: base64Image});
     }
   };
+  const handleLogout = async () => {
+    await logout();
+    navigate('/login')
+  }
 
 
 
@@ -72,7 +78,7 @@ const ProfileHeader = () => {
           
           <button
             className="text-slate-400 hover:text-slate-200 transition-colors"
-            onClick={logout}
+            onClick={handleLogout}
           >
             <LogOutIcon className="size-5" />
           </button>

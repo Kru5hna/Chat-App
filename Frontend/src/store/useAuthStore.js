@@ -59,6 +59,7 @@ export const useAuthStore = create((set, get) => ({
   logout: async () => {
     try {
       await axiosInstance.post('/auth/logout');
+      set({ authUser: null });
       toast.success("Logged Out Successfully!");
       // socket
     } catch (error) {
@@ -69,16 +70,16 @@ export const useAuthStore = create((set, get) => ({
   },
    updateProfile: async (data) => {
     try {
-      console.log('here1');
       
       const res = await axiosInstance.put("/auth/update-profile", data);
-      console.log('here2');
+      
       
       set({ authUser: res.data });
       toast.success("Profile updated successfully");
     } catch (error) {
-      console.log("Error in update profile:", error);
-      toast.error(error.response.data.message);
+      console.log("----->Error in update profile:", error);
+      
+      toast.error("Image should be <100kb ");
     }
   },
 }));
