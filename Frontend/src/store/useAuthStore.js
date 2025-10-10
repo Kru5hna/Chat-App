@@ -78,8 +78,9 @@ export const useAuthStore = create((set, get) => ({
       toast.success("Profile updated successfully");
     } catch (error) {
       console.log("----->Error in update profile:", error);
+      const errorMessage = error.response?.data?.message || error.message || "An unknown error occurred.";
       
-      toast.error("Image should be <100kb ");
+      toast.error(errorMessage);
     }
   },
 }));

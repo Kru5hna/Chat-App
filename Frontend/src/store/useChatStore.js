@@ -58,11 +58,12 @@ export const useChatStore = create((set, get) => ({
 
   sendMessage: async(messageData) => {
     const {selectedUser, messages} = get();
-    const { authUser } = useAuthStore.getState();
-    const tempId = `temp-${Date.now()}`;
 
-    const optimisticMessage = {
-      
+    try {
+      const res = await axiosInstance.post(`/messages/send/${selectedUser._id}`, messageData);
+      set({ messages: messages.concat(res.data) })
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something Went Wrong");
     }
   }
 }))

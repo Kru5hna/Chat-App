@@ -34,7 +34,7 @@ const App = () => {
     </div>
 
     {/* Content Layer - Routes on top */}
-    <div className="relative z-10">
+    <div className="relative z-10 ">
       <Routes>
         <Route
           path="/"

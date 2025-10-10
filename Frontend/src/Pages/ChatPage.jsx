@@ -12,7 +12,7 @@ export const ChatPage = () => {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center p-4 ">
-      <div className="relative w-full max-w-6xl h-[800px]">
+      <div className="relative w-full max-w-6xl h-[710px]">
         <BorderAnimatedContainer>
           <div className="w-full h-full flex overflow-hidden rounded-lg bg-zinc-950">
             {/* Left Sidebar - Contacts/Chats */}
