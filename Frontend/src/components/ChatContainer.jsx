@@ -42,7 +42,7 @@ const ChatContainer = () => {
                   className={`chat-bubble relative ${
                     msg.senderId === authUser._id
                       ? "bg-purple-700 text-white"
-                      : "bg-zinc-700 text-white"
+                      : "bg-blue-600 text-white"
                   }`}
                 >
                   {msg.image && (
