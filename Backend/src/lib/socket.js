@@ -39,8 +39,6 @@ io.on("connection", (socket) => {
       delete userSocketMap[userId];
       // updated List   
       io.emit("getOnlineUsers", Object.keys(userSocketMap));
-
-
       
    })
 })
