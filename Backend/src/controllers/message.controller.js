@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import Message from "../models/Message.js";
 import cloudinary from "../lib/cloudinary.js";
+import { getReceiverSocketId, io } from "../lib/socket.js";
 
 
 export const getAllContacts = async (req, res) => {
@@ -72,6 +73,15 @@ export const sendMessage = async (req, res) => {
     await newMessage.save();
 
     // Todo: send the message to the other user using socket.io
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if(receiverSocketId && receiverSocketId.size > 0) {
+      receiverSocketId.forEach(socketId => {
+      io.to(socketId).emit("newMessage",newMessage);
+      })
+    }
+
+
     res.status(201).json(newMessage);
   } catch (error) {
     console.log("Error in sendMessage Controller :", error.message);

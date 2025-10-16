@@ -86,5 +86,33 @@ export const useChatStore = create((set, get) => ({
       set({ messages: messages.filter(msg => msg._id !== tempId ) })
       toast.error(error.response?.data?.message || "Something Went Wrong");
     }
-  }
+  },
+
+  subscribeToMessages: () => {
+  const { selectedUser } = get();
+  if (!selectedUser) return;
+
+  const socket = useAuthStore.getState().socket;
+  
+  // Remove any existing listeners first to prevent pile-up
+  socket.off("newMessage");
+  
+  socket.on("newMessage", (newMessage) => {
+    const { selectedUser: currentSelectedUser } = get();
+    
+    // Only add message if it's for the currently selected conversation
+    if (
+      newMessage.senderId === currentSelectedUser?._id ||
+      newMessage.receiverId === currentSelectedUser?._id
+    ) {
+      const currentMessages = get().messages;
+      set({ messages: [...currentMessages, newMessage] });
+    }
+  });
+},
+
+unsubscribeFromMessages: () => {
+  const socket = useAuthStore.getState().socket;
+  socket.off("newMessage");
+}
 }))
