@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { useAuthStore } from "./store/useAuthStore";
-
 import LoginPage from "./Pages/LoginPage"
 import SignUpPage  from "./Pages/SignUpPage";
 import PageLoader from "./components/PageLoader";
