@@ -4,8 +4,8 @@ A real-time chat application built with the MERN stack and Socket.io, enabling s
 
 🔗 **[Live Demo](https://chat-app-jm55l.sevalla.app/)**
 
-![ChatHub Login](./screenshots/login.png)
-![ChatHub Chat Interface](./screenshots/chat.png)
+![ChatHub Login](./Frontend/public/img1.png)
+![ChatHub Chat Interface](./Frontend/public/img2.png)
 
 ## ✨ Features
 
